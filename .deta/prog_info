@@ -1,0 +1,1 @@
+{"id":"8cd22e5f-9c5f-40a3-933f-2e25da2ee3fc","space":48215,"runtime":"nodejs14.x","name":"npmb3","path":"1aguik","project":"d01wall3","account":"144798365827","region":"ap-south-1","deps":["express@^4.18.2","dotenv@^16.0.3","mongoose@^6.8.3","axios@^1.2.2","body-parser@^1.20.1","cookie-parser@^1.4.6","cors@^2.8.5"],"envs":null,"public":true,"log_level":"off","cron":""}
