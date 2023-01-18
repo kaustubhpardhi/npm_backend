@@ -12,4 +12,5 @@ db.category = require("./categoryModel");
 db.brand = require("./brandModel");
 db.orders = require("./ordersModel");
 db.assignedStocks = require("./assignedStocksModel");
+db.wholesalerLogin = require("./wholesalerLoginModel");
 module.exports = db;

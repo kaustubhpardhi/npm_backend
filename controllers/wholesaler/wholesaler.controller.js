@@ -3,6 +3,8 @@ const Wholesaler = db.wholesaler;
 const Product = db.product;
 const AssignedStocks = db.assignedStocks;
 const Retailer = db.retailer;
+const WholesalerLogin = db.wholesalerLogin;
+const jwt = require("jsonwebtoken");
 
 exports.addWholesaler = (req, res) => {
   const newWholesaler = new Wholesaler({
@@ -73,4 +75,47 @@ exports.assignedStocks = async (req, res) => {
     return res.status(404).send({ error: "Retailer not found" });
   }
   //find corresponding product based on name
+  const product = await Product.findone({ name: product_name });
+  if (!product) {
+    return res.status(404).send({ error: "Product not found" });
+  }
+
+  // create the product assignment document
+  const assignedStocks = new AssignedStocks({
+    wholesaler_id: wholesaler._id,
+    retailer_id: retailer._id,
+    product_id: product._id,
+    quantity,
+    payment_status,
+    sold_status,
+  });
+
+  await assignedStocks.save();
+
+  res.status(200).send({ message: "Product saved succesfully" });
+};
+
+exports.login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const wholesaler = await WholesalerLogin.findOne({ email });
+    //if no user is found with provided email
+    if (!wholesaler) {
+      return res.status(401).send({ errror: "Sorry, Email not found" });
+    }
+    //check for password
+    const isMatched = await wholesaler.isValidPassword(password);
+    // If the password is not matched
+    if (!isMatched) {
+      return res.status(401).send({ error: "Invalid credentials" });
+    }
+    //create a jwt
+    const token = jwt.sign({ id: wholesaler._id }, process.env.JWT_SECRET, {
+      expiresIn: "8h",
+    });
+    //send the jwt as response
+    res.status(200).send({ email: wholesaler.email, token: token });
+  } catch (error) {
+    res.status(500).send({ error: "Internal server error" });
+  }
 };
