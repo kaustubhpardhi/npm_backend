@@ -6,12 +6,7 @@ const categorySchema = new mongoose.Schema({
     required: true,
   },
   description: String,
-  products: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Product",
-    },
-  ],
+  wholesaler_id: { type: mongoose.Schema.Types.ObjectId, ref: "Wholesaler" },
 });
 
 const Category = mongoose.model("Category", categorySchema);
