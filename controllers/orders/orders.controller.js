@@ -22,7 +22,7 @@ exports.createOrder = async (req, res) => {
   }, 0);
 
   // Create the order document
-  const order = new Order({
+  const order = new Orders({
     wholesaler_id: wholesaler._id,
     retailer_name,
     order_date,

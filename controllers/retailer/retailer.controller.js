@@ -8,7 +8,7 @@ exports.addRetailer = (req, res) => {
     email: req.body.email,
     address: req.body.address,
     pinCode: req.body.pincode,
-    state:req.body.state,
+    state: req.body.state,
   });
 
   newRetailer.save((err, savedRetailer) => {

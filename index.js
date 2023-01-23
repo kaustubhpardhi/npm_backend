@@ -20,6 +20,10 @@ const db = require("./models");
 require("./routes/wholesaler/wholesaler.routes")(app);
 require("./routes/retailer/retailer.routes")(app);
 require("./routes/product/product.routes")(app);
+require("./routes/warehouses/warehouses.routes")(app);
+require("./routes/orders/orders.routes")(app);
+require("./routes/category/category.routes")(app);
+require("./routes/brand/brand.controller")(app);
 
 const uri =
   "mongodb+srv://kaustubh:kaustubh786@cluster0.1ct2btc.mongodb.net/?retryWrites=true&w=majority";
