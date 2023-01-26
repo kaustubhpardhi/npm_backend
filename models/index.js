@@ -14,4 +14,5 @@ db.orders = require("./ordersModel");
 db.assignedStocks = require("./assignedStocksModel");
 db.wholesalerLogin = require("./wholesalerLoginModel");
 db.warehouse = require("./warehouseModel");
+db.retailerLogin = require("./retailerLoginModel");
 module.exports = db;

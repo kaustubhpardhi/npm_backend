@@ -1,5 +1,7 @@
 const db = require("../../models");
 const Retailer = db.retailer;
+const RetailerLogin = db.retailerLogin;
+const jwt = require("jsonwebtoken");
 
 exports.addRetailer = (req, res) => {
   const newRetailer = new Retailer({
@@ -29,4 +31,29 @@ exports.getAllRetailer = (req, res) => {
       res.status(200).json(retailers);
     }
   });
+};
+
+exports.login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const retailer = await RetailerLogin.findOne({ email });
+    //if no user is found with provided email
+    if (!retailer) {
+      return res.status(401).send({ errror: "Sorry, Email not found" });
+    }
+    //check for password
+    const isMatched = await retailer.isValidPassword(password);
+    // If the password is not matched
+    if (!isMatched) {
+      return res.status(401).send({ error: "Invalid credentials" });
+    }
+    //create a jwt
+    const token = jwt.sign({ id: retailer._id }, process.env.JWT_SECRET, {
+      expiresIn: "8h",
+    });
+    //send the jwt as response
+    res.status(200).send({ email: retailer.email, token: token });
+  } catch (error) {
+    res.status(500).send({ error: "Internal server error" });
+  }
 };

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+var uuid = require("uuid/v4");
 
 const wholesalerLoginSchema = new mongoose.Schema({
   email: {
@@ -8,6 +9,10 @@ const wholesalerLoginSchema = new mongoose.Schema({
     unique: true,
   },
   password: {
+    type: String,
+    required: true,
+  },
+  id: {
     type: String,
     required: true,
   },
