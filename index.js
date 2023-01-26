@@ -24,6 +24,7 @@ require("./routes/warehouses/warehouses.routes")(app);
 require("./routes/orders/orders.routes")(app);
 require("./routes/category/category.routes")(app);
 require("./routes/brand/brand.controller")(app);
+require("./routes/npm/npm.routes")(app);
 
 const uri =
   "mongodb+srv://kaustubh:kaustubh786@cluster0.1ct2btc.mongodb.net/?retryWrites=true&w=majority";

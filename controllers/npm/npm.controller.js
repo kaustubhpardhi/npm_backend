@@ -1,37 +1,36 @@
 const db = require("../../models");
 const WholesalerLogin = db.wholesalerLogin;
 const RetailerLogin = db.retailerLogin;
-var uuid = require("uuid/v4");
+const uuid = require("uuid");
 
 exports.wholesalerSignup = async (req, res) => {
   const { email, password } = req.body;
-  const emailExist = WholesalerLogin.findOne({ email: email });
+  const emailExist = await WholesalerLogin.findOne({ email });
   if (emailExist) {
     res.status(200).send({ message: "user already registered" });
-    return;
+  } else {
+    const id = uuid.v4();
+    const wholesaler = new WholesalerLogin({
+      email: email,
+      password: password,
+      id: id,
+    });
+    await wholesaler.save();
+    res.status(200).send({ message: "Wholesaler account created", id: id });
   }
-  const wholesaler = new WholesalerLogin({
-    email: email,
-    password: password,
-    id: uuid(),
-  });
-  await wholesaler.save();
-  res
-    .status(200)
-    .send({ message: "Wholesaler account created", wholesaler: wholesaler });
 };
 
 exports.retailerSignup = async (req, res) => {
   const { email, password } = req.body;
   const emailExist = RetailerLogin.findOne({ email: email });
-  if (emailExist) {
-    res.status(200).send({ message: "user already registered" });
-    return;
-  }
+  //   if (emailExist) {
+  //     res.status(200).send({ message: "user already registered" });
+  //     return;
+  //   }
   const retailer = new RetailerLogin({
     email: email,
     password: password,
-    id: uuid(),
+    id: uuid.v4(),
   });
   await retailer.save();
   res

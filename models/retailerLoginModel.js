@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-var uuid = require("uuid/v4");
 
 const retailerLoginSchema = new mongoose.Schema({
   email: {

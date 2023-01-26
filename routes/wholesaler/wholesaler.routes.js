@@ -12,4 +12,5 @@ module.exports = function (app) {
   app.post("/api/wholesalers/addwholesaler", controller.addWholesaler);
   app.post("/api/wholesalers/wholesaler", controller.getWholesalerById);
   app.get("/api/wholesalers", controller.getAllWholesaler);
+  app.post("/api/wholesaler/login", controller.login);
 };

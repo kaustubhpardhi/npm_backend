@@ -11,4 +11,5 @@ module.exports = function (app) {
 
   app.post("/api/retailers/addretailer", controller.addRetailer);
   app.get("/api/retailers", controller.getAllRetailer);
+  app.post("/api/retailer/login", controller.login);
 };
