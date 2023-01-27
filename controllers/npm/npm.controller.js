@@ -1,7 +1,7 @@
 const db = require("../../models");
 const WholesalerLogin = db.wholesalerLogin;
 const RetailerLogin = db.retailerLogin;
-const uuid = require("uuid");
+const shortid = require("shortid");
 
 exports.wholesalerSignup = async (req, res) => {
   const { email, password } = req.body;
@@ -9,7 +9,7 @@ exports.wholesalerSignup = async (req, res) => {
   if (emailExist) {
     res.status(200).send({ message: "user already registered" });
   } else {
-    const id = uuid.v4();
+    const id = shortid.generate();
     const wholesaler = new WholesalerLogin({
       email: email,
       password: password,
@@ -27,10 +27,11 @@ exports.retailerSignup = async (req, res) => {
   //     res.status(200).send({ message: "user already registered" });
   //     return;
   //   }
+  const id = shortid.generate();
   const retailer = new RetailerLogin({
     email: email,
     password: password,
-    id: uuid.v4(),
+    id: id,
   });
   await retailer.save();
   res

@@ -110,7 +110,7 @@ exports.login = async (req, res) => {
       return res.status(401).send({ error: "Invalid credentials" });
     }
     //create a jwt
-    const token = jwt.sign({ id: wholesaler._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: wholesaler._id }, "kaustubh", {
       expiresIn: "8h",
     });
     //send the jwt as response
